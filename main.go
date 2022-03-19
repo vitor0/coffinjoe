@@ -9,7 +9,7 @@ import (
 	"syscall"
 
 	"github.com/genuinetools/pkg/cli"
-	"github.com/vitor0/coffinjoe/tree/main/coffinjoe-0.0.1"
+	"github.com/vitor0/coffinjoe/version"
 	//"github.com/heltonmarx/coffinjoe/version"
 )
 

@@ -1,6 +1,7 @@
 # Setup name variables for the package/tool
 NAME := coffinjoe
-PKG := github.com/heltonmarx/$(NAME)
+PKG := github.com/vitor0/$(NAME)
+#PKG := github.com/heltonmarx/$(NAME)
 
 CGO_ENABLED := 0
 

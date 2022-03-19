@@ -12,7 +12,7 @@ import (
 	"text/template"
 	"time"
 
-	"//github.com/vitor0/coffinjoe/tree/main/coffinjoe-0.0.1"
+	"github.com/vitor0/coffinjoe/schema"
 	//"github.com/heltonmarx/coffinjoe/schema"
 )
 
