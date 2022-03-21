@@ -12,8 +12,8 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/vitor0/coffinjoe/schema"
-	//"github.com/heltonmarx/coffinjoe/schema"
+	//"github.com/vitor0/coffinjoe/schema"
+	"github.com/heltonmarx/coffinjoe/schema"
 )
 
 // Response represents the request response.
