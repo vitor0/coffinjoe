@@ -9,8 +9,8 @@ import (
 	"syscall"
 
 	"github.com/genuinetools/pkg/cli"
-	"github.com/vitor0/coffinjoe/version"
-	//"github.com/heltonmarx/coffinjoe/version"
+	//"github.com/vitor0/coffinjoe/version"
+	"github.com/heltonmarx/coffinjoe/version"
 )
 
 var (
