@@ -11,9 +11,6 @@ import (
 	"net/url"
 	"text/template"
 	"time"
-
-	//"github.com/vitor0/coffinjoe/schema"
-	"github.com/heltonmarx/coffinjoe/schema"
 )
 
 // Response represents the request response.
@@ -33,7 +30,7 @@ type ResponseBody struct {
 	XMLName xml.Name `xml:"getObitosResponse"`
 	Body    []struct {
 		HjidAttr int64 `xml:"Hjid,attr,omitempty"`
-		*schema.CObito
+		*CObito
 	} `xml:"listaObitos"`
 }
 
@@ -76,7 +73,7 @@ func NewClient(host string, opts ...Option) *Client {
 }
 
 // GetDeatchCertificateByDate get a list of death certificate of given date period.
-func (c *Client) GetDeatchCertificateByDate(ctx context.Context, date string) ([]*schema.CObito, error) {
+func (c *Client) GetDeatchCertificateByDate(ctx context.Context, date string) ([]*CObito, error) {
 	host, err := url.Parse(c.host)
 	if err != nil {
 		return nil, err
@@ -104,7 +101,7 @@ func (c *Client) GetDeatchCertificateByDate(ctx context.Context, date string) ([
 		return nil, err
 	}
 	n := len(r.SoapBody.Resp.Body)
-	cobitos := make([]*schema.CObito, n)
+	cobitos := make([]*CObito, n)
 	for _, m := range r.SoapBody.Resp.Body {
 		cobitos = append(cobitos, m.CObito)
 	}
@@ -150,7 +147,7 @@ func getRequest(username, password, date string) ([]byte, error) {
 	return doc.Bytes(), nil
 }
 
-func exportJSON(certificates []*schema.CObito, output string) error {
+func exportJSON(certificates []*CObito, output string) error {
 	data, err := json.MarshalIndent(certificates, "", " ")
 	if err != nil {
 		return err
@@ -158,7 +155,7 @@ func exportJSON(certificates []*schema.CObito, output string) error {
 	return ioutil.WriteFile(output+".json", data, 0644)
 }
 
-func exportXML(certificates []*schema.CObito, output string) error {
+func exportXML(certificates []*CObito, output string) error {
 	data, err := xml.MarshalIndent(certificates, "", " ")
 	if err != nil {
 		return err
