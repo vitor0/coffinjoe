@@ -9,8 +9,6 @@ import (
 	"syscall"
 
 	"github.com/genuinetools/pkg/cli"
-	//"github.com/vitor0/coffinjoe/version"
-	"github.com/heltonmarx/coffinjoe/version"
 )
 
 var (
@@ -20,26 +18,25 @@ var (
 	output   string
 )
 
-const host = "https://selo.tjsc.jus.br/selo/CertidaoService"	//"https://selo.tjsc.jus.br/selo_teste/CertidaoService" --> HML
+const host = "https://selo.tjsc.jus.br/selo/CertidaoService" //"https://selo.tjsc.jus.br/selo_teste/CertidaoService" --> HML
 
 func main() {
 	p := cli.NewProgram()
 	p.Description = "API client to consume the death certificate from tjsc"
 	p.FlagSet = flag.NewFlagSet("global", flag.ExitOnError)
 
-	p.GitCommit = version.GITCOMMIT
-	p.Version = version.VERSION
+	p.GitCommit = GITCOMMIT
+	p.Version = VERSION
 
 	//p.FlagSet.StringVar(&username, "username", "convenio", "TJ-SC username")
 	//p.FlagSet.StringVar(&username, "u", "convenio", "TJ-SC username")
 	p.FlagSet.StringVar(&username, "username", "convenio_cge", "TJ-SC username")
-	p.FlagSet.StringVar(&username, "u", "convenio_cge", "TJ-SC username")	
+	p.FlagSet.StringVar(&username, "u", "convenio_cge", "TJ-SC username")
 
-//	p.FlagSet.StringVar(&password, "password", "selodigital", "TJ-SC password")
-//	p.FlagSet.StringVar(&password, "p", "selodigital", "TJ-SC password")
+	//	p.FlagSet.StringVar(&password, "password", "selodigital", "TJ-SC password")
+	//	p.FlagSet.StringVar(&password, "p", "selodigital", "TJ-SC password")
 	p.FlagSet.StringVar(&password, "password", "myp1y2MOds", "TJ-SC password")
 	p.FlagSet.StringVar(&password, "p", "myp1y2MOds", "TJ-SC password")
-
 
 	p.FlagSet.StringVar(&date, "date", "2018-06-04", "specific date of request (YYYY-MM-DD)")
 	p.FlagSet.StringVar(&date, "d", "2018-06-04", "specific date of request (YYYY-MM-DD)")
