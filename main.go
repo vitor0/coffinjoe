@@ -16,6 +16,7 @@ var (
 	password string
 	date     string
 	output   string
+	timeout  int
 )
 
 const host = "https://selo.tjsc.jus.br/selo/CertidaoService" //"https://selo.tjsc.jus.br/selo_teste/CertidaoService" --> HML
@@ -44,6 +45,9 @@ func main() {
 	p.FlagSet.StringVar(&output, "output", "certificates", "Output certificates JSON file")
 	p.FlagSet.StringVar(&output, "o", "certificates", "Output certificates JSON file")
 
+	p.FlagSet.IntVar(&timeout, "timeout", 20, "Http client timeout (in seconds)")
+	p.FlagSet.IntVar(&timeout, "t", 20, "Http client timeout (in seconds)")
+
 	p.Before = func(ctx context.Context) error {
 		signals := make(chan os.Signal)
 		signal.Notify(signals, os.Interrupt)
@@ -59,7 +63,11 @@ func main() {
 		return nil
 	}
 	p.Action = func(ctx context.Context, args []string) error {
-		client := NewClient(host, WithCredentials(username, password))
+		options := []Option{
+			WithCredentials(username, password),
+			WithTimeout(timeout),
+		}
+		client := NewClient(host, options...)
 		cd, err := client.GetDeatchCertificateByDate(ctx, date)
 		if err != nil {
 			return err
