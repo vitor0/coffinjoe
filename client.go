@@ -45,12 +45,20 @@ func WithCredentials(username, password string) Option {
 	}
 }
 
+// WithTimeout allows to set the timeout option
+func WithTimeout(timeout int) Option {
+	return func(c *Client) {
+		c.timeout = time.Duration(timeout) * time.Second
+	}
+}
+
 // Client holds the http client used to request
 type Client struct {
 	conn     *http.Client
 	host     string
 	username string
 	password string
+	timeout  time.Duration
 }
 
 // NewClient returns a new http client setup the
@@ -58,16 +66,16 @@ type Client struct {
 func NewClient(host string, opts ...Option) *Client {
 	client := &Client{
 		host: host,
-		conn: &http.Client{
-			Transport: &http.Transport{
-				MaxIdleConns:    50,
-				IdleConnTimeout: 1 * time.Hour,
-			},
-			Timeout: 5 * time.Second,
-		},
 	}
 	for _, opt := range opts {
 		opt(client)
+	}
+	client.conn = &http.Client{
+		Transport: &http.Transport{
+			MaxIdleConns:    50,
+			IdleConnTimeout: 1 * time.Hour,
+		},
+		Timeout: client.timeout,
 	}
 	return client
 }
